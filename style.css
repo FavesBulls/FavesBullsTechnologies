@@ -1,0 +1,989 @@
+/* --- ESTILOS CSS GENERALES Y MODERNOS --- */
+:root {
+    --color-primario: #0A1931; /* Azul oscuro profundo */
+    --color-secundario: #1F2E4A; /* Azul ligeramente más claro */
+    --color-acento: #00BCD4; /* Cian vibrante para destacar */
+    --color-texto-claro: #ECF0F1; /* Blanco grisáceo */
+    --color-texto-oscuro: #34495E; /* Gris oscuro */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 1.6;
+    color: var(--color-texto-claro);
+    background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-secundario) 100%);
+    min-height: 100vh; /* Asegura que el degradado cubra toda la altura */
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-acento);
+    margin-bottom: 0.8em;
+}
+
+p {
+    margin-bottom: 1em;
+    font-weight: 300; /* Texto más ligero para modernidad */
+}
+
+a {
+    color: var(--color-acento);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #72DDF2; /* Un tono más claro al pasar el mouse */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2em;
+}
+
+/* --- Estilos del Encabezado (Header) --- */
+.header {
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+    padding: 1em 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    position: sticky; /* Sticky header para que se quede arriba al hacer scroll */
+    top: 0;
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    backdrop-filter: blur(5px); /* Efecto de desenfoque moderno */
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Para responsive */
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--color-texto-claro);
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos para la imagen del logo */
+.logo-img {
+    height: 100px; /* Ajusta este valor para controlar la altura de tu logo */
+    width: auto; /* Mantiene la proporción de la imagen */
+    margin-right: 10px; /* Espacio entre el logo y el texto */
+    vertical-align: middle; /* Alinea el logo verticalmente con el texto */
+}
+
+/* --- CAMBIOS PARA EL MENÚ HAMBURGUESA GENERAL --- */
+.nav-menu {
+    position: relative; /* Para posicionar el menú desplegable */
+    margin-left: auto; /* Empuja el menú al lado derecho */
+}
+
+.nav-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Esto se cambia en JS/Media Query para columnas */
+    flex-direction: column; /* Por defecto en columna para el desplegable */
+    gap: 15px; /* Espacio entre los elementos del menú */
+    
+    /* Ocultar menú por defecto y animarlo */
+    position: absolute;
+    top: 100%; /* Debajo del header/botón */
+    right: 0; /* Alineado a la derecha */
+    background-color: var(--color-secundario); /* Fondo del menú desplegado */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 15px 20px; /* Padding interno */
+    min-width: 200px; /* Ancho mínimo del menú desplegable */
+    
+    max-height: 0; /* Altura 0 para ocultarlo */
+    overflow: hidden; /* Oculta el contenido que excede la altura */
+    transition: max-height 0.4s ease-out, opacity 0.4s ease-out, transform 0.4s ease-out;
+    opacity: 0;
+    transform: translateY(-10px); /* Ligeramente hacia arriba para el efecto de caída */
+    pointer-events: none; /* Deshabilita clics cuando está oculto */
+}
+
+.nav-menu ul.active {
+    max-height: 500px; /* Altura máxima al abrir (ajustar si tienes muchos ítems) */
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto; /* Habilita clics cuando está visible */
+}
+
+.nav-menu ul li a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--color-texto-claro);
+    padding: 10px 0; /* Más padding para los ítems del desplegable */
+    position: relative;
+    transition: color 0.3s ease;
+    display: block; /* Para que el padding y el border-bottom funcionen */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separador para cada item */
+}
+
+.nav-menu ul li:last-child a {
+    border-bottom: none; /* No hay borde en el último ítem */
+}
+
+.nav-menu ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0px; /* Ajustado para el nuevo padding */
+    width: 0;
+    height: 2px;
+    background-color: var(--color-acento);
+    transition: width 0.3s ease;
+}
+
+.nav-menu ul li a:hover::after {
+    width: 100%;
+}
+
+/* El botón de hamburguesa SIEMPRE visible */
+.menu-toggle {
+    display: block; /* Visible por defecto en todas las pantallas */
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: var(--color-acento);
+    cursor: pointer;
+    padding: 10px;
+    margin-left: 20px; /* Espacio entre el logo y el botón en pantallas grandes */
+}
+.menu-toggle:focus {
+    outline: none;
+}
+.menu-toggle.active i {
+    transform: rotate(90deg); /* Pequeña rotación al abrir el menú */
+}
+        
+/* --- Sección Hero (Principal) --- */
+.hero {
+    text-align: center;
+    padding: 6em 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh; /* Altura mínima para una buena presentación */
+    position: relative;
+    overflow: hidden; /* Para contener las partículas si se añaden */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Capa oscura para contraste del texto */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.hero h1 {
+    font-size: 3.5em;
+    margin-bottom: 0.3em;
+    line-height: 1.2;
+    color: var(--color-acento); /* Color acento para el título principal */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Sombra para resaltar */
+}
+
+.hero p {
+    font-size: 1.3em;
+    margin-bottom: 2em;
+    color: var(--color-texto-claro);
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--color-acento);
+    color: var(--color-primario); /* Texto oscuro sobre botón claro */
+    padding: 0.9em 2em;
+    border-radius: 50px; /* Botones más redondeados */
+    font-weight: 700;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4); /* Sombra para el botón */
+}
+
+.btn:hover {
+    background-color: #00A6BF; /* Un poco más oscuro al pasar el mouse */
+    transform: translateY(-3px); /* Pequeño efecto de elevación */
+}
+
+.btn i {
+    margin-left: 10px;
+}
+
+/* Estilo para botones pequeños (nuevos CTAs) */
+.btn-small {
+    display: inline-block;
+    background-color: rgba(0, 188, 212, 0.2); /* Un color acento más suave */
+    color: var(--color-acento);
+    padding: 0.6em 1.5em;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9em;
+    margin-top: 1em; /* Espacio superior */
+    border: 1px solid var(--color-acento); /* Borde sutil */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-small:hover {
+    background-color: var(--color-acento);
+    color: var(--color-primario);
+    transform: translateY(-2px);
+}
+
+
+/* --- Secciones de Contenido (General) --- */
+.section {
+    padding: 4em 2em;
+    text-align: center;
+}
+
+.section:nth-child(even) { /* Color de fondo alterno para secciones */
+    background-color: var(--color-secundario);
+}
+
+.section h2 {
+    font-size: 2.8em;
+    margin-bottom: 1em;
+    position: relative;
+    padding-bottom: 10px;
+    color: var(--color-texto-claro); /* Títulos de sección más visibles */
+}
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 80px;
+    height: 4px;
+    background-color: var(--color-acento);
+    border-radius: 2px;
+}
+
+.grid-3-cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 3em;
+}
+
+.feature-card {
+    background-color: rgba(255, 255, 255, 0.08); /* Fondo transparente para las tarjetas */
+    padding: 2.5em;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+    display: flex; /* Para centrar el contenido y el botón */
+    flex-direction: column;
+    justify-content: space-between; /* Empuja el botón hacia abajo */
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    background-color: rgba(255, 255, 255, 0.15); /* Ligeramente más opaco al pasar el mouse */
+}
+
+.feature-card i {
+    font-size: 3.5em;
+    color: var(--color-acento);
+    margin-bottom: 0.6em;
+    display: block;
+}
+
+.feature-card h3 {
+    font-size: 1.6em;
+    margin-bottom: 0.5em;
+    color: var(--color-texto-claro);
+}
+
+.feature-card p {
+    font-size: 1em;
+    color: rgba(255, 255, 255, 0.7); /* Texto secundario más suave */
+    flex-grow: 1; /* Permite que el párrafo ocupe el espacio disponible */
+}
+
+/* --- Secciones de Marca Específicas (X28, Dahua) --- */
+.brand-section {
+    padding: 5em 2em;
+}
+
+.brand-section .brand-title {
+    margin-bottom: 2em;
+}
+
+.brand-content {
+    display: flex;
+    align-items: center;
+    gap: 4em; /* Espacio entre texto e imagen */
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: left; /* Alinea el texto a la izquierda en estas secciones */
+}
+
+.brand-content.reverse-order {
+    flex-direction: row-reverse; /* Invierte el orden de imagen y texto */
+}
+
+.brand-text {
+    flex: 1;
+}
+
+.brand-text p {
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1.5em;
+}
+
+.brand-text ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2em;
+}
+
+.brand-text ul li {
+    font-size: 1em;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0.8em;
+    display: flex;
+    align-items: flex-start;
+}
+
+.brand-text ul li i {
+    color: #4CAF50; /* Un verde para los checks */
+    margin-right: 10px;
+    font-size: 1.2em;
+    margin-top: 3px;
+}
+
+.brand-image {
+    flex: 1;
+    min-width: 300px; /* Tamaño mínimo para la imagen */
+    text-align: center; /* Centra la imagen si es más pequeña */
+}
+
+.brand-image .img-responsive {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+
+/* --- Sección Oculta (para servicios "próximamente") --- */
+.hidden-section {
+    display: none; /* Esto oculta la sección completamente de la vista */
+}
+
+/* --- Sección de Contacto --- */
+#contacto {
+    background-color: var(--color-primario);
+    padding: 5em 2em;
+    text-align: center;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 3em;
+    flex-wrap: wrap;
+    margin-bottom: 3em; /* Espacio antes del formulario */
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-texto-claro);
+}
+
+.contact-item i {
+    font-size: 2.5em;
+    color: var(--color-acento);
+    margin-bottom: 15px;
+}
+
+.contact-item p {
+    font-size: 1.1em;
+    margin: 0;
+}
+
+/* --- Estilos del Formulario de Contacto --- */
+.contact-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 3em;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    text-align: left; /* Alinea el contenido del formulario a la izquierda */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-form-container h3 {
+    text-align: center;
+    color: var(--color-texto-claro);
+    margin-bottom: 1.5em;
+    font-size: 2em;
+}
+
+.form-group {
+    margin-bottom: 1.5em;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: var(--color-texto-claro);
+    font-weight: 600;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group textarea {
+    width: 100%;
+    padding: 0.8em;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-texto-claro);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="tel"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-acento);
+    box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.3);
+}
+
+.form-group textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+}
+
+.contact-form .btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 1em;
+}
+
+.form-note {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    margin-top: 1.5em;
+}
+
+/* --- Sección FAQ (Preguntas Frecuentes) --- */
+.faq-container {
+    max-width: 800px;
+    margin: 3em auto 0 auto;
+    text-align: left;
+}
+
+.faq-item {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: hidden; /* Para contener la altura del acordeón */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2em 1.5em;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.faq-question h3 {
+    margin: 0;
+    font-size: 1.15em;
+    color: var(--color-texto-claro);
+    flex-grow: 1; /* Permite que el texto ocupe el espacio */
+}
+
+.faq-question i {
+    font-size: 1em;
+    color: var(--color-acento);
+    transition: transform 0.3s ease;
+}
+
+.faq-question.active i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.5em; /* Padding horizontal para el texto */
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.faq-answer p {
+    padding-bottom: 1.2em; /* Padding inferior solo cuando está visible */
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.faq-item.open .faq-answer {
+    max-height: 200px; /* Ajusta según el contenido de la respuesta */
+    padding: 1.2em 1.5em; /* Padding total cuando está abierto */
+}
+
+/* --- Sección Redes Sociales (Placeholder) --- */
+.social-feed-placeholder {
+    max-width: 600px;
+    margin: 3em auto 0 auto;
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 3em;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-feed-placeholder p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1em;
+}
+
+.social-feed-placeholder i {
+    font-size: 3em;
+    color: var(--color-acento);
+    margin-bottom: 0.5em;
+}
+
+.social-feed-placeholder .note {
+    font-size: 0.8em;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 1em;
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: var(--color-secundario);
+    color: rgba(255, 255, 255, 0.6);
+    padding: 2em 0;
+    text-align: center;
+    margin-top: auto; /* Empuja el footer hacia abajo */
+}
+
+.footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+}
+
+.footer .social-icons a {
+    font-size: 1.8em;
+    margin: 0 15px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+    color: var(--color-acento);
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--color-acento);
+}
+
+.footer p {
+    margin-top: 1em;
+    font-size: 0.9em;
+}
+
+
+/* --- Botón de WhatsApp Flotante --- */
+.whatsapp-btn {
+    position: fixed; /* Lo hace flotar en la pantalla */
+    bottom: 25px;    /* Distancia desde abajo */
+    right: 25px;     /* Distancia desde la derecha */
+    background-color: #25D366; /* Color verde de WhatsApp */
+    color: white;    /* Color del ícono */
+    width: 60px;     /* Ancho del botón */
+    height: 60px;    /* Altura del botón */
+    border-radius: 50%; /* Lo hace redondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.2em; /* Tamaño del ícono */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra para que se destaque */
+    z-index: 1000;   /* Asegura que esté por encima de todo */
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+    transform: scale(1.1); /* Efecto de crecimiento al pasar el mouse */
+    background-color: #1DA850; /* Un verde ligeramente más oscuro al pasar el mouse */
+}
+
+/* --- ESTILOS PARA LOS MODALES (VENTANAS FLOTANTES) --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Posición fija en la pantalla */
+    z-index: 2000; /* Asegura que esté por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilitar scroll si el contenido es muy largo */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semi-transparente */
+    backdrop-filter: blur(8px); /* Efecto de desenfoque */
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Para la animación de entrada */
+    transition: opacity 0.3s ease-in-out;
+}
+
+.modal.active {
+    display: flex; /* Mostrar el modal */
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--color-secundario);
+    margin: 5% auto; /* 5% superior, centrado horizontalmente */
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%; /* Ancho responsivo */
+    max-width: 800px; /* Ancho máximo para el contenido */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transform: translateY(-50px); /* Para la animación de entrada */
+    transition: transform 0.3s ease-in-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-height: 90vh; /* Máxima altura para el contenido interno con scroll */
+    overflow-y: auto; /* Permite el scroll interno del contenido */
+    color: var(--color-texto-claro);
+}
+
+.modal.active .modal-content {
+    transform: translateY(0); /* Vuelve a la posición original */
+}
+
+.modal-content h2 {
+    color: var(--color-acento);
+    margin-top: 0;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.modal-content h3 {
+    color: var(--color-texto-claro);
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 5px;
+}
+
+.modal-content p, .modal-content ul {
+    font-size: 1em;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1em;
+}
+
+.modal-content ul {
+    list-style: disc; /* Vuelven los puntos de la lista */
+    padding-left: 25px;
+}
+
+.modal-content ul li {
+    margin-bottom: 0.5em;
+}
+
+.modal-text-content {
+    /* Si el contenido es largo, se puede agregar un scroll interno */
+    max-height: calc(90vh - 100px); /* Ajustar según el padding del modal */
+    overflow-y: auto;
+    padding-right: 15px; /* Espacio para la barra de scroll */
+}
+
+/* Estilo para la barra de scroll en el modal */
+.modal-text-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-text-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.modal-text-content::-webkit-scrollbar-thumb {
+    background-color: var(--color-acento);
+    border-radius: 10px;
+    border: 2px solid var(--color-secundario);
+}
+
+
+.modal-date {
+    text-align: center;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2em;
+}
+
+.close-button {
+    color: var(--color-acento);
+    font-size: 2.5em;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #FF6B6B; /* Rojo para indicar cierre */
+    text-decoration: none;
+    cursor: pointer;
+    transform: rotate(90deg);
+}
+
+/* ESTILOS ESPECÍFICOS PARA EL ACORDEÓN DE FAQ DENTRO DEL MODAL */
+.faq-container-modal {
+    margin-top: 1em; /* Ajuste si es necesario dentro del modal */
+}
+
+.faq-item-modal {
+    background-color: rgba(255, 255, 255, 0.05); /* Ligeramente más claro que el modal */
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.faq-question-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em 1.2em;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.03); /* Más sutil */
+    transition: background-color 0.3s ease;
+}
+
+.faq-question-modal:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.faq-question-modal h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: var(--color-texto-claro);
+    flex-grow: 1;
+    border-bottom: none; /* No queremos borde en los títulos de FAQ dentro del modal */
+    padding-bottom: 0;
+}
+
+.faq-question-modal i {
+    font-size: 0.9em;
+    color: var(--color-acento);
+    transition: transform 0.3s ease;
+}
+
+.faq-question-modal.active i {
+    transform: rotate(180deg);
+}
+
+.faq-answer-modal {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.2em;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.faq-answer-modal p {
+    padding-bottom: 1em;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.faq-item-modal.open .faq-answer-modal {
+    max-height: 200px; /* Ajusta si las respuestas son más largas */
+    padding: 1em 1.2em;
+}
+
+
+/* --- Responsive Design Básico --- */
+@media (max-width: 1024px) {
+    .brand-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .brand-content.reverse-order {
+        flex-direction: column; /* También en orden inverso en móviles */
+    }
+    .brand-text {
+        margin-bottom: 2em;
+    }
+    .brand-text ul {
+        text-align: left; /* Mantener la alineación de la lista */
+    }
+    .modal-content {
+        margin: 10% auto; /* Ajuste margen para pantallas más pequeñas */
+        width: 95%;
+    }
+}
+
+/* No necesitamos media query para el menú hamburguesa ahora, ya que siempre es el mismo.
+   Pero mantenemos otros ajustes responsive para el resto del contenido. */
+@media (max-width: 768px) {
+    .header .container {
+        flex-direction: row; /* Vuelve a fila para logo y botón */
+        justify-content: space-between; /* Espacio entre logo y botón */
+        flex-wrap: nowrap; /* Evita que el logo y el botón se envuelvan */
+    }
+
+    .logo {
+        margin-bottom: 0; /* Elimina el margen inferior extra del logo */
+    }
+
+    /* El menú ahora se gestiona globalmente, no solo en media query */
+    
+    .hero h1 {
+        font-size: 2.5em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .section h2 {
+        font-size: 2em;
+    }
+
+    .grid-3-cols {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+
+    .feature-card {
+        padding: 2em;
+    }
+
+    .logo-img { /* Ajuste del logo para pantallas pequeñas */
+        height: 30px; 
+    }
+
+    /* Ajuste del botón de WhatsApp para pantallas más pequeñas */
+    .whatsapp-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8em;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .contact-form-container {
+        padding: 2em;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .footer-links {
+        margin-top: 1em;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .faq-question h3 {
+        font-size: 1em;
+    }
+    .modal-content {
+        padding: 20px; /* Reducir padding en móviles */
+    }
+    .close-button {
+        font-size: 2em;
+        top: 10px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 4em 1em;
+    }
+    .btn {
+        font-size: 1em;
+        padding: 0.8em 1.5em;
+    }
+    .contact-info {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .contact-form-container {
+        padding: 1.5em;
+    }
+}
